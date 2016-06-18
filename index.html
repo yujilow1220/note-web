@@ -7,19 +7,47 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/semantic.min.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 <body>
-  <ul data-bind="foreach: posts">
-    <div>
-      <div data-bind="html:text"></div>
-      <div data-bind="text:author"></div>
-      <div data-bind="text:postedAt"></div>
+
+
+  <div class="body" data-bind="foreach: posts">
+    <div class="ui centered card">
+      <div class="content">
+        <div class="header" data-bind="text:author">Matt Giampietro</div>
+        <div class="meta">
+          <a></a>
+        </div>
+        <div class="description" data-bind="html:text">
+          Matthew is an interior designer living in New York.
+        </div>
+      </div>
+      <div class="extra content">
+        <span class="right floated" data-bind="text:postedAt">
+          Joined in 2013
+        </span>
+      </div>
     </div>
-  </ul>
+
+    <!-- <div class="ui card">
+      <div class="content">
+        <div class="header" data-bind="html:text"></div>
+          <div class="meta">
+            <font data-bind="text:author"></font>
+          </div>
+
+      </div>
+      <div class="extra content">
+      <span class="right floated" data-bind="text:postedAt"></span>
+    </div> -->
+  </div>
 </body>
 <script type='text/javascript' src="js/jquery-3.0.0.min.js"></script>
 <script type='text/javascript' src="js/knockout-3.4.0.js"></script>
 <script type="text/javascript" src="js/marked.min.js"></script>
+<script type="text/javascript" src="js/semantic.min.js"></script>
 <script type='text/javascript' src="js/index.js"></script>
 
 </html>
