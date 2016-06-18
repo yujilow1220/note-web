@@ -10,11 +10,16 @@
 </head>
 <body>
   <ul data-bind="foreach: posts">
-    <li data-bind="text: text">aaa</li>
+    <div>
+      <div data-bind="html:text"></div>
+      <div data-bind="text:author"></div>
+      <div data-bind="text:postedAt"></div>
+    </div>
   </ul>
 </body>
 <script type='text/javascript' src="js/jquery-3.0.0.min.js"></script>
 <script type='text/javascript' src="js/knockout-3.4.0.js"></script>
+<script type="text/javascript" src="js/marked.min.js"></script>
 <script type='text/javascript' src="js/index.js"></script>
 
 </html>
