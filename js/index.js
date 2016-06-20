@@ -1,3 +1,5 @@
+var converter = new showdown.Converter();
+
 function noteViewModel() {
   var self = this;
   self.tag = ko.observable();
@@ -25,7 +27,7 @@ function getPost(start, tag, callback){
 
 function convertPost(data){
   return data.map(function(e){
-    e.text = marked(e.text);
+    e.text = converter.makeHtml(e.text);
     e.postedAt = formatDate(new Date(e.postedAt), 'YYYY-MM-DD  hh:mm');
     return e;
   });
