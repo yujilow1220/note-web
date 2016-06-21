@@ -4,7 +4,11 @@ function noteViewModel() {
   var self = this;
   self.tag = ko.observable();
   self.posts = ko.observableArray([]);
-  self.posts();
+  self.clickedCards = ko.observableArray([]);
+  self.onClickCard = function(data,event){
+    if(self.clickedCards().indexOf(data.id) === -1)self.clickedCards().push(data.id);
+    else self.clickedCards(deleteElement(self.clickedCards()));
+  }
   getPost(0,"root", function(data){
     self.posts(convertPost(data));
   });
@@ -59,3 +63,9 @@ var formatDate = function (date, format) {
   }
   return format;
 };
+
+function deleteElement(array, element){
+  var index = array.indexOf(element);
+  array = array.slice(index-1,index);
+  return array;
+}

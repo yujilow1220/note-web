@@ -14,7 +14,7 @@
 
 
   <div class="body" data-bind="foreach: posts">
-    <div class="ui centered card">
+    <div class="ui centered card" data-bind="click:$root.onClickCard">
       <div class="content">
         <div class="header" data-bind="text:author">Matt Giampietro</div>
         <div class="meta">
