@@ -1,3 +1,6 @@
 .body{
   padding:20px;
 }
+
+.blue { color: #4285F4; }
+.blue > path { fill: currentColor; }

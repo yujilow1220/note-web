@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/semantic.min.css" />
 <link rel="stylesheet" type="text/css" href="css/index.css" />
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 </head>
 <body>
 
@@ -16,6 +17,9 @@
   <div class="body" data-bind="foreach: posts">
     <div class="ui centered card" data-bind="click:$root.onClickCard">
       <div class="content">
+        <svg class="right floated blue" width="24px" height="24px" viewBox="0 0 24 24" data-bind="">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+        </svg>
         <div class="header" data-bind="text:author">Matt Giampietro</div>
         <div class="meta">
           <a></a>
