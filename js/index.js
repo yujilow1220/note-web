@@ -5,16 +5,13 @@ function noteViewModel() {
   /* -----------observable-------------- */
   self.tag = ko.observable();
   self.posts = ko.observableArray([]);
-  self.clickedCards = ko.observableArray([]);
-  self.onClickCard = function(data,event){
-    if(self.clickedCards().indexOf(data.id) === -1){
-      self.clickedCards().push(data.id);
-    }
-    else {
-      self.clickedCards(deleteElement(self.clickedCards()));
-    }
-    // data.clicked(!data.clicked());
-    // console.log(data.clicked());
+  self.tagArea = ko.observable();
+  self.isClicked = ko.computed(function(){
+    return self.posts().filter(hasClickedElements).length > 0;
+  })
+  self.onClickCard = function(data,event,index){
+    //build a click flag
+    self.posts()[self.posts().indexOf(data)].clicked(!data.clicked())
   }
 
 /* -----------observable-------------- */
@@ -31,7 +28,7 @@ ko.applyBindings(new noteViewModel());
 
 function getPost(start, tag, callback){
   $.ajax({
-    url:"http://localhost:3000/post?_start="+start+"&tag="+tag,
+    url:"http://localhost:3000/post?_start="+start+"&tag="+tag+"&_sort=postedAt&_order=DESC",
     type:"GET"
   }).done(function(data){
     callback(data);
@@ -42,9 +39,16 @@ function convertPost(data){
   return data.map(function(e){
     e.text = converter.makeHtml(e.text);
     e.postedAt = formatDate(new Date(e.postedAt), 'YYYY-MM-DD  hh:mm');
-    e.clicked = false;
+    e.clicked = ko.observable(false);
     return e;
   });
+}
+
+/* filter */
+
+
+function hasClickedElements(e){
+  return e.clicked() === true;
 }
 
 /*
