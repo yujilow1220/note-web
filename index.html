@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<p data-bind="visible: isClicked">選択中。。。</p>
+<p data-bind="visible: isClicked, text:clickedCards">選択中。。。</p>
   <div class="body" data-bind="foreach: posts">
     <div class="ui centered card" data-bind="click:$root.onClickCard">
       <div class="content">
