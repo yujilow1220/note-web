@@ -6,12 +6,15 @@ function noteViewModel() {
   self.tag = ko.observable();
   self.posts = ko.observableArray([]);
   self.tagArea = ko.observable();
+  self.clickedCards = ko.computed(function(){
+    return self.posts().filter(hasClickedElements);
+  })
   self.isClicked = ko.computed(function(){
-    return self.posts().filter(hasClickedElements).length > 0;
+    return self.clickedCards().length > 0;
   })
   self.onClickCard = function(data,event,index){
     //build a click flag
-    self.posts()[self.posts().indexOf(data)].clicked(!data.clicked())
+    self.posts()[self.posts().indexOf(data)].clicked(!data.clicked());
   }
 
 /* -----------observable-------------- */

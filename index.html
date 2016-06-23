@@ -8,12 +8,13 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/semantic.min.css" />
+<link rel="stylesheet" type="text/css" href="css/toastr.min.css" />
 <link rel="stylesheet" type="text/css" href="css/index.css" />
 <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
 </head>
 <body>
 
-<p data-bind="visible: isClicked">選択中。。。</p>
+<p data-bind="visible: isClicked, text:clickedCards">選択中。。。</p>
   <div class="body" data-bind="foreach: posts">
     <div class="ui centered card" data-bind="click:$root.onClickCard">
       <div class="content">
@@ -53,6 +54,7 @@
 <script type="text/javascript" src="js/marked.min.js"></script>
 <script type="text/javascript" src="js/showdown.min.js"></script>
 <script type="text/javascript" src="js/semantic.min.js"></script>
+<script type="text/javascript" src="js/toastr.min.js"></script>
 <script type='text/javascript' src="js/index.js"></script>
 
 </html>
