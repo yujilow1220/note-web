@@ -1,5 +1,13 @@
+.margintop{
+ margin-top: 60px;
+}
+
 .body{
   padding:20px;
+}
+
+.description{
+  word-wrap: break-word;
 }
 
 .blue { color: #4285F4; }
