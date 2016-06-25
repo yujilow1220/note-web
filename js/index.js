@@ -14,12 +14,8 @@ function noteViewModel() {
   })
   self.onClickCard = function(data,event,index){
     //build a click flag
-<<<<<<< HEAD
     //need to chenge observables in posts:observableArray
-    self.posts()[self.posts().indexOf(data)].clicked(!data.clicked())
-=======
     self.posts()[self.posts().indexOf(data)].clicked(!data.clicked());
->>>>>>> 3df385591f6d112dc3a315d31a1ce47c2a474c8d
   }
 
 /* -----------observable-------------- */
