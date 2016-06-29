@@ -3,9 +3,13 @@ var converter = new showdown.Converter();
 function noteViewModel() {
   var self = this;
   /* -----------observable-------------- */
-  self.tag = ko.observable();
+  self.tag = ko.observable("tag");
   self.posts = ko.observableArray([]);
-  self.tagArea = ko.observable();
+  self.tagArea = ko.observable("tagarea");
+  self.tagArea.subscribe(function(newValue){
+    self.tag(newValue);
+    console.log(newValue)
+  });
   self.clickedCards = ko.computed(function(){
     return self.posts().filter(hasClickedElements);
   })
