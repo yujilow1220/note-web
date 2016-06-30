@@ -8,19 +8,17 @@ function noteViewModel() {
   self.tagArea = ko.observable("tagarea");
   self.tagArea.subscribe(function(newValue){
     self.tag(newValue);
-    console.log(newValue)
   });
+  self.newTag = ko.observable("");
   self.clickedCards = ko.computed(function(){
     return self.posts().filter(hasClickedElements);
-  })
+  });
   self.isClicked = ko.computed(function(){
     return self.clickedCards().length > 0;
-  })
-  self.onClickCard = function(data,event,index){
-    //build a click flag
-    //need to chenge observables in posts:observableArray
-    self.posts()[self.posts().indexOf(data)].clicked(!data.clicked());
-  }
+  });
+  self.onClickCard = turnOnClickFlagForSettingTag;
+
+  self.postWithTag = postWithTag;
 
 /* -----------observable-------------- */
 
@@ -33,6 +31,12 @@ ko.applyBindings(new noteViewModel());
 
 
 // functions
+
+function turnOnClickFlagForSettingTag(data,event,index){
+  //build a click flag
+  //need to chenge observables in posts:observableArray
+  self.posts()[self.posts().indexOf(data)].clicked(!data.clicked());
+}
 
 function getPost(start, tag, callback){
   $.ajax({
@@ -57,6 +61,10 @@ function convertPost(data){
 
 function hasClickedElements(e){
   return e.clicked() === true;
+}
+
+
+function postWithTag(self, event){
 }
 
 /*
