@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next){
   var post = new db.Post;
   post.text = req.body.text;
+  post.tags.push(req.body.tag || db.root);
   post.save(function(err,data){
     console.log(data);
     res.send(data);
@@ -23,8 +24,8 @@ router.get('/test', function(req,res,next){
   db.Post.find({}, {}, function(err,doc){
       console.log(err);
       console.log(doc);
-      res.send(doc);
   });
+  res.send('ok');
 });
 
 module.exports = router;
