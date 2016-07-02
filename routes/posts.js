@@ -7,8 +7,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:start', function(req, res, next){
-  var count = req.params['count'];
-  res.send(count);
+  var start = req.params['start'];
+  res.send(start);
 });
 
 module.exports = router;
