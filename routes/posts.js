@@ -13,11 +13,36 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next){
   var post = new db.Post;
   post.text = req.body.text;
-  post.tags.push(req.body.tag || db.root);
-  post.save(function(err,data){
-    console.log(data);
-    res.send(data);
-  })
+
+  if(req.body.tag){
+      db.Tag.findOne({text:req.body.tag},{},{},function(err,docs){
+        if(!docs){
+          var tag = new db.Tag;
+          tag.text = req.body.tag;
+          tag.save(function(err,tag){
+            post.tags.push(tag);
+            post.save(function(err,data){
+              console.log(data);
+              res.send(data);
+            })
+          });
+        }else{
+          post.tags.push(docs);
+          post.save(function(err,data){
+            console.log(data);
+            res.send(data);
+          });
+        }
+      });
+  }
+
+  else {
+    post.tags.push(db.root);
+    post.save(function(err,data){
+      console.log(data);
+      res.send(data);
+    });
+  }
 });
 
 router.get('/test', function(req,res,next){
