@@ -4,7 +4,10 @@ var db = require('../lib/db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  var start = req.body.start || 0;
+  db.Post.find({}, null, {sort: {postedAt: -1}}, function(err, docs){
+    res.send(docs);
+  });
 });
 
 router.post('/', function(req, res, next){
@@ -22,10 +25,9 @@ router.get('/test', function(req,res,next){
   // post.text = 'aaa';
   // post.save();
   db.Post.find({}, {}, function(err,doc){
-      console.log(err);
-      console.log(doc);
+      res.send(doc[doc.length-1].tags[0]);
   });
-  res.send('ok');
+
 });
 
 module.exports = router;
