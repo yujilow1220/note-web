@@ -5,9 +5,11 @@ var db = require('../lib/db');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var start = req.body.start || 0;
-  db.Post.find({}, null, {sort: {postedAt: -1}}, function(err, docs){
+  db.Post.find({}, null, {sort: {postedAt: -1}})
+  .populate('tags')
+  .exec(function(err,docs){
     res.send(docs);
-  });
+  })
 });
 
 router.post('/', function(req, res, next){
