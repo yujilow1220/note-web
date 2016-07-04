@@ -16,7 +16,9 @@ function noteViewModel() {
   self.isClicked = ko.computed(function(){
     return self.clickedCards().length > 0;
   });
-  self.onClickCard = turnOnClickFlagForSettingTag;
+  self.onClickCard = function(data,event,index){
+    self.posts()[self.posts().indexOf(data)].clicked(!data.clicked());
+  }
 
   self.postWithTag = postWithTag;
 
@@ -40,7 +42,7 @@ function turnOnClickFlagForSettingTag(data,event,index){
 
 function getPost(start, tag, callback){
   $.ajax({
-    url:"http://localhost:3000/post?_start="+start+"&tag="+tag+"&_sort=postedAt&_order=DESC",
+    url:"http://localhost:3000/post?_start="+start+"&tag="+tag,
     type:"GET"
   }).done(function(data){
     callback(data);
