@@ -15,4 +15,10 @@ router.post('/store', function(req, res, next){
   });
 });
 
+router.get('/tags', function(req, res, next){
+  db.Tag.find({}, {}, function(err, docs){
+    res.send(docs);
+  });
+});
+
 module.exports = router;

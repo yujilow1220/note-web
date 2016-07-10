@@ -13,6 +13,19 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/tag/:tag', function(req, res, next){
+  var tag = req.params['tag'];
+  console.log(tag)
+  db.Tag.findOne({text:tag}, {}, function(err,doc){
+    db.Post.find({tags:doc}, {}, function(err,docs){
+      console.log(err)
+      console.log(docs);
+      res.send(docs);
+    })
+  })
+
+});
+
 router.post('/', function(req, res, next){
   var post = new db.Post;
   post.text = req.body.text;
