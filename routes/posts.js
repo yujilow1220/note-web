@@ -5,12 +5,16 @@ var db = require('../lib/db');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var start = req.body.start || 0;
-  db.Post.find({}, null, {sort: {postedAt: -1}})
-  .populate('tags')
-  .exec(function(err,docs){
-    res.send(docs);
-  })
+  var start = req.query.start || 0;
+  var tag = req.query.tag || 'root';
+  db.Tag.findOne({text:tag},function(err,doc){
+    db.Post.find({tags:doc}, null, {sort: {postedAt: -1}})
+    .populate('tags')
+    .exec(function(err,docs){
+      res.send(docs);
+    })
+  });
+
 });
 
 router.get('/tag/:tag', function(req, res, next){
