@@ -4,6 +4,7 @@ function noteViewModel() {
   var self = this;
   /* -----------observable-------------- */
   self.tag = ko.observable("tag");
+  self.tags = ko.observableArray([]);
   self.posts = ko.observableArray([]);
   self.tagArea = ko.observable("tagarea");
   self.tagArea.subscribe(function(newValue){
@@ -24,8 +25,14 @@ function noteViewModel() {
 
 /* -----------observable-------------- */
 
-  getPost(0,"root", function(data){
+  var requiredTag = location.hash.split("#")[1] || 'root';
+  console.log(requiredTag)
+  getPost(0,requiredTag, function(data){
     self.posts(convertPost(data));
+  });
+
+  getTags(function(data){
+    self.tags(data);
   });
 }
 
@@ -43,6 +50,15 @@ function turnOnClickFlagForSettingTag(data,event,index){
 function getPost(start, tag, callback){
   $.ajax({
     url:"http://localhost:3000/post?_start="+start+"&tag="+tag,
+    type:"GET"
+  }).done(function(data){
+    callback(data);
+  });
+}
+
+function getTags(callback){
+  $.ajax({
+    url:"http://localhost:3000/tags",
     type:"GET"
   }).done(function(data){
     callback(data);

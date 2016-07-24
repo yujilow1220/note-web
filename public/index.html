@@ -50,11 +50,13 @@
     </div>
     </div>
     <div class="col-md-4">
-      <h2>tag cloud</h2>
+      <h2>tag</h2>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Tag" data-bind="value: tagArea" >
         </div>
-      <font>Now : <font data-bind="text: tag"></font></font>
+        <ul data-bind="foreach: tags">
+          <li data-bind="text:text  "></li>
+        </ul>
     </div>
   </div>
   </div>
