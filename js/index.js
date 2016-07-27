@@ -20,7 +20,13 @@ function noteViewModel() {
   self.onClickCard = function(data,event,index){
     self.posts()[self.posts().indexOf(data)].clicked(!data.clicked());
   }
-
+  self.onClickTagName = function(data, event, index){
+    var tag = data.text;
+    console.log(tag);
+    location.hash = "#"+tag;
+    // location.reload();
+    // TODO: タグを入れたら自動的にajaxして書き換える仕様に変更
+  }
   self.postWithTag = postWithTag;
 
 /* -----------observable-------------- */
