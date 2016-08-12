@@ -6,9 +6,9 @@ function noteViewModel() {
   self.tag = ko.observable("tag");
   self.tags = ko.observableArray([]);
   self.posts = ko.observableArray([]);
-  self.tagArea = ko.observable("tagarea");
-  self.tagArea.subscribe(function(newValue){
-    self.tag(newValue);
+  self.tagSearch = ko.observable("");
+  self.tagSearch.subscribe(function(newValue){
+    self.searchTag(newValue);
   });
   self.newTag = ko.observable("");
   self.clickedCards = ko.computed(function(){
@@ -27,7 +27,21 @@ function noteViewModel() {
     // location.reload();
     // TODO: タグを入れたら自動的にajaxして書き換える仕様に変更
   }
-  self.postWithTag = postWithTag;
+
+  self.searchTag = function(value){
+    self.tags().forEach(function(e, i){
+      if(e.text.indexOf(value) >= 0){
+      }
+    });
+  }
+
+  self.onSelectTag = function(data){
+    location.href = "/#"+data.text;
+    getPost(0,data.text, function(data){
+      self.posts(convertPost(data));
+
+    });
+  }
 
 /* -----------observable-------------- */
 
@@ -38,7 +52,9 @@ function noteViewModel() {
   });
 
   getTags(function(data){
+    data = data.map(function(e){e.visible = ko.observable(true); return e;});
     self.tags(data);
+
   });
 }
 
@@ -73,22 +89,21 @@ function getTags(callback){
 
 function convertPost(data){
   return data.map(function(e){
-    e.text = converter.makeHtml(e.text);
+    e.raw = e.text;
+    e.text = ko.observable(converter.makeHtml(e.text));
     e.postedAt = formatDate(new Date(e.postedAt), 'YYYY-MM-DD  hh:mm');
     e.clicked = ko.observable(false);
+    e.isEdit = ko.observable(false);
+    e.edit = function(data){
+      data.isEdit(true);
+    }
     return e;
   });
 }
 
 /* filter */
-
-
 function hasClickedElements(e){
   return e.clicked() === true;
-}
-
-
-function postWithTag(self, event){
 }
 
 /*

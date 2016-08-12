@@ -23,33 +23,57 @@
 </nav>
 <div class="margintop container-fluid">
   <div class="row">
-    <button data-bind="click:postWithTag">postWithTag</button>
-  <div class="body col-md-8" data-bind="foreach: posts">
-    <div class="ui centered card" data-bind="click:$root.onClickCard">
+  <div class="body col-md-9" role="main" data-bind="foreach: posts">
+    <div class="ui centered card">
       <div class="content">
-        <svg class="right floated blue" width="24px" height="24px" viewBox="0 0 24 24" data-bind="visible: clicked">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
-        </svg>
-        <!-- <div class="header" data-bind="text:author">Matt Giampietro</div> -->
-
-        <div class="meta">
-          <a></a>
+        <div data-bind="click: $root.onClickCard">
+          <div class="check">
+            <svg class="right floated blue" width="20px" height="20px" viewBox="0 0 24 24" data-bind="visible: clicked">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+            </svg>
+          </div>
+          <div data-bind="ifnot:isEdit">
+            <div class="description" data-bind="html:text">
+              Matthew is an interior designer living in New York.
+            </div>
+          </div>
         </div>
-        <div class="description" data-bind="html:text">
-          Matthew is an interior designer living in New York.
+        <div data-bind="if:isEdit">
+          <div class="form-group">
+            <div class="col-sm-10">
+              <textarea class="form-control" rows="10" data-bind="value: raw"></textarea>
+              <!--TODO: 編集後に修正を投稿する -->
+            </div>
+          </div>
         </div>
       </div>
       <div class="extra content">
-        <div class="left floated" data-bind="foreach:tags">
-          <a data-bind="text: text"></a>
-        </div>
-        <span class="right floated" data-bind="text:postedAt">
+        <span class="left floated" data-bind="text:postedAt">
           Joined in 2013
         </span>
+        <div class="left floated tags" data-bind="foreach:tags">
+          <a data-bind="text: text"></a>
+        </div>
+
+        <div class="functions right floated">
+          <font class="glyphicon glyphicon-edit" data-bind="click: edit"></font>
+        </div>
+
       </div>
     </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
+      <div class="sidebar affix">
+          <h4>Search</h4>
+          <div class="form-group">
+              <input id="tag" type="text" class="form-control" placeholder="tag search" data-bind="value:tagSearch, valueUpdate: 'keyup'"/>
+          </div>
+          <ul class="list-group taglist" data-bind="foreach: tags">
+            <li class="list-group-item" data-bind="text:text, visible:visible, click: $root.onSelectTag">Ops! Something wrong with Network...</li>
+          </ul>
+        </div>
+      </div>
+    <!-- <div class="col-md-4">
       <h2>tag</h2>
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Tag" data-bind="value: tagArea" >
@@ -57,7 +81,7 @@
         <ul data-bind="foreach: tags">
           <li data-bind="text:text, click: $root.onClickTagName"></li>
         </ul>
-    </div>
+    </div> -->
   </div>
   </div>
 </body>
