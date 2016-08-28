@@ -45,7 +45,7 @@ function noteViewModel() {
 
 /* -----------observable-------------- */
 
-  var requiredTag = location.hash.split("#")[1] || 'root';
+  var requiredTag = location.hash.split("#")[1] || null;
   console.log(requiredTag)
   getPost(0,requiredTag, function(data){
     self.posts(convertPost(data));
@@ -70,8 +70,14 @@ function turnOnClickFlagForSettingTag(data,event,index){
 }
 
 function getPost(start, tag, callback){
+  var endpoint = 'post/tag/' + tag + "/" + start;
+  if(tag === null){
+    endpoint = 'post/all/' + start;
+  }
+  var url = 'http://localhost:3000/' + endpoint;
+  console.log(url);
   $.ajax({
-    url:"http://localhost:3000/post?_start="+start+"&tag="+tag,
+    url:url,
     type:"GET"
   }).done(function(data){
     callback(data);
