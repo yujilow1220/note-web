@@ -2,6 +2,9 @@ var converter = new showdown.Converter();
 
 function noteViewModel() {
   var self = this;
+
+  self.count = 0;
+  self.requiredTag;
   /* -----------observable-------------- */
   self.tag = ko.observable("tag");
   self.tags = ko.observableArray([]);
@@ -43,11 +46,17 @@ function noteViewModel() {
     });
   }
 
-/* -----------observable-------------- */
+  self.load = function(data){
+    self.count += 1;
+    getPost(self.count,self.requiredTag, function(data){
+      self.posts(self.posts().concat(convertPost(data)));
+    });
+  }
 
-  var requiredTag = location.hash.split("#")[1] || null;
-  console.log(requiredTag)
-  getPost(0,requiredTag, function(data){
+/* -----------observable-------------- */
+  self.requiredTag = location.hash.split("#")[1] || null;
+  console.log(self.requiredTag)
+  getPost(self.count,self.requiredTag, function(data){
     self.posts(convertPost(data));
   });
 

@@ -16,14 +16,15 @@
   <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" data-bind="click:load">
+        next
       </a>
     </div>
   </div>
 </nav>
 <div class="margintop container-fluid">
   <div class="row">
-  <div class="body col-md-9" role="main" data-bind="foreach: posts">
+  <div id="posts" class="body col-md-9" role="main" data-bind="foreach: posts">
     <div class="ui centered card">
       <div class="content">
         <div data-bind="click: $root.onClickCard">
@@ -62,6 +63,7 @@
       </div>
     </div>
     </div>
+
     <div class="col-md-3">
       <div class="sidebar affix">
           <h4>Search</h4>
