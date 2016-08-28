@@ -16,6 +16,9 @@
   <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
+      <a class="navbar-brand" href="/">
+        all
+      </a>
       <a class="navbar-brand" data-bind="click:load">
         next
       </a>
@@ -42,6 +45,7 @@
         <div data-bind="if:isEdit">
           <div class="form-group">
             <div class="col-sm-10">
+              <!-- TODO: 高さを合わせる -->
               <textarea class="form-control" rows="10" data-bind="value: raw"></textarea>
               <!--TODO: 編集後に修正を投稿する -->
             </div>
