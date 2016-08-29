@@ -83,7 +83,7 @@ function getPost(start, tag, callback){
   if(tag === null){
     endpoint = 'post/all/' + start;
   }
-  var url = 'http://localhost:3000/' + endpoint;
+  var url = '/' + endpoint;
   console.log(url);
   $.ajax({
     url:url,
@@ -95,7 +95,7 @@ function getPost(start, tag, callback){
 
 function getTags(callback){
   $.ajax({
-    url:"http://localhost:3000/tags",
+    url:"/tags",
     type:"GET"
   }).done(function(data){
     callback(data);
