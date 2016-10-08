@@ -23,6 +23,11 @@
         next
       </a>
     </div>
+    <div class="navbar-form navbar-right">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search from Text" data-bind="value:searchText">
+    </div>
+</div>
   </div>
 </nav>
 <div class="margintop container-fluid">
@@ -69,7 +74,7 @@
     </div>
 
     <div class="col-md-3">
-      <div class="sidebar affix">
+      <div class="sidebar">
           <h4>Search</h4>
           <div class="form-group">
               <input id="tag" type="text" class="form-control" placeholder="tag search" data-bind="value:tagSearch, valueUpdate: 'keyup'"/>

@@ -10,8 +10,9 @@ function noteViewModel() {
   self.tags = ko.observableArray([]);
   self.posts = ko.observableArray([]);
   self.tagSearch = ko.observable("");
-  self.tagSearch.subscribe(function(newValue){
-    self.searchTag(newValue);
+  self.searchText = ko.observable("");
+  self.searchText.subscribe(function(newValue){
+    self.s_text(newValue);
   });
   self.newTag = ko.observable("");
   self.clickedCards = ko.computed(function(){
@@ -36,6 +37,12 @@ function noteViewModel() {
       if(e.text.indexOf(value) >= 0){
       }
     });
+  }
+  self.s_text = function(value){
+    search_from_text(value, function(data){
+      console.log(data)
+      self.posts(convertPost(data));
+    })
   }
 
   self.onSelectTag = function(data){
@@ -96,6 +103,18 @@ function getPost(start, tag, callback){
 function getTags(callback){
   $.ajax({
     url:"/tags",
+    type:"GET"
+  }).done(function(data){
+    callback(data);
+  });
+}
+
+function search_from_text(value, callback){
+  if(value === "")return;
+  var endpoint = 'post/search/' + value;
+  var url = '/' + endpoint;
+  $.ajax({
+    url:url,
     type:"GET"
   }).done(function(data){
     callback(data);
